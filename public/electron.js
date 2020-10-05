@@ -17,15 +17,15 @@ let tray;
 let view;
 
 global.sharedElectronObj = {
-  params: {}
+  params: {},
 };
 function createWindow() {
   mainWindow = new BrowserWindow({
     //frame: true,
     webPreferences: {
       webviewTag: true,
-      nodeIntegration: true
-    }
+      nodeIntegration: true,
+    },
   });
   mainWindow.loadURL(
     isDev
@@ -132,4 +132,9 @@ ipcMain.handle("open-external", async (event, data) => {
   if (data && data.q)
     shell.openExternal(`https://www.google.com/search?q=${data.q}`);
   else if (data && data.url) shell.openExternal(data.url);
+});
+
+ipcMain.on("printo", (event, arg) => {
+  console.log("printo");
+  mainWindow.webContents.print({});
 });

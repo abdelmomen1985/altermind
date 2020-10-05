@@ -3,7 +3,8 @@ import { TreeNote } from "../../utils/types/notes";
 import marked from "marked";
 import { base64Encode, base64Decode } from "../../utils/functions";
 import { AppCtxt } from "../../Context";
-
+import { ipcRenderer } from "electron";
+import { from } from "apollo-boost";
 interface LocalProps {
   note: TreeNote;
   onChange: () => any;
@@ -91,6 +92,20 @@ export default function MdEditorContainer({ note, onChange }: LocalProps) {
             className="m-2 px-2 py-1 rounded-lg bg-red-400 text-green-800 text-xl font-light uppercase shadow-md hover:shadow-lg"
           >
             Delete
+          </button>
+          <button
+            onClick={async () => {
+              /** @type {ipcRenderer} */
+              const ipcRenderer = window.require("electron").ipcRenderer;
+              await ipcRenderer.sendSync("printo");
+              /*
+              const contents = remote.getCurrentWebContents();
+              contents.print();
+              */
+            }}
+            className="m-2 px-2 py-1 rounded-lg bg-blue-400 text-green-800 text-xl font-light uppercase shadow-md hover:shadow-lg"
+          >
+            print
           </button>
         </div>
       )}
