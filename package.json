@@ -27,7 +27,7 @@
     "draft-js": "^0.11.5",
     "draftjs-to-markdown": "^0.6.0",
     "electron-is-dev": "^1.2.0",
-    "graphql": "^14.6.0",
+    "graphql": "^16.2.0",
     "markdown-draft-js": "^2.2.0",
     "marked": "^0.8.2",
     "nodemon": "^2.0.3",
@@ -36,7 +36,7 @@
     "react-dom": "^16.13.1",
     "react-hotkeys": "^2.0.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.1",
+    "react-scripts": "^5.0.0",
     "tailwindcss": "^1.2.0",
     "typescript": "^3.8.3",
     "wait-on": "^4.0.2"
@@ -52,7 +52,9 @@
     "build:styles": "postcss src/tailwind.css -o src/styles.css",
     "prebuild": "npm run build:styles",
     "prestart": "npm run build:styles",
-    "serve": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3030 && nodemon --exec \"\"electron .\"\""
+    "electron-start": "wait-on http://localhost:3030 && nodemon --exec electron .",
+    "serve": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3030 && nodemon --exec \"\"electron .\"\"",
+    "dev": "concurrently \"cross-env BROWSER=none npm run react-start\"  \"npm run electron-start\""
   },
   "eslintConfig": {
     "extends": "react-app"
